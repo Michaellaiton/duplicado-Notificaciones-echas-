@@ -1,6 +1,7 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { defineProps, computed, ref, onMounted, onUnmounted } from 'vue';
 
+// Define las propiedades que este componente puede recibir.
 const props = defineProps({
     align: {
         type: String,
@@ -16,23 +17,28 @@ const props = defineProps({
     },
 });
 
+// Define una referencia para el estado de apertura/cierre del dropdown.
 let open = ref(false);
 
+// Función que cierra el dropdown al presionar la tecla 'Escape'.
 const closeOnEscape = (e) => {
     if (open.value && e.key === 'Escape') {
         open.value = false;
     }
 };
 
+// Registra/desregistra el evento de tecla 'Escape' al montar/desmontar el componente.
 onMounted(() => document.addEventListener('keydown', closeOnEscape));
 onUnmounted(() => document.removeEventListener('keydown', closeOnEscape));
 
+// Calcula la clase de ancho del dropdown en función de la propiedad 'width'.
 const widthClass = computed(() => {
     return {
         '48': 'w-48',
     }[props.width.toString()];
 });
 
+// Calcula las clases de alineación del dropdown en función de la propiedad 'align'.
 const alignmentClasses = computed(() => {
     if (props.align === 'left') {
         return 'origin-top-left left-0';
@@ -47,14 +53,18 @@ const alignmentClasses = computed(() => {
 </script>
 
 <template>
+    <!-- Contenedor principal del dropdown -->
     <div class="relative">
-        <div @click="open = ! open">
+        <!-- Elemento que activa/desactiva el dropdown al hacer clic -->
+        <div @click="open = !open">
+            <!-- Espacio para personalizar el elemento activador del dropdown -->
             <slot name="trigger" />
         </div>
 
-        <!-- Full Screen Dropdown Overlay -->
+        <!-- Fondo de pantalla completa para cerrar el dropdown al hacer clic -->
         <div v-show="open" class="fixed inset-0 z-40" @click="open = false" />
 
+        <!-- Contenido del dropdown con transiciones de entrada/salida -->
         <transition
             enter-active-class="transition ease-out duration-200"
             enter-from-class="transform opacity-0 scale-95"
@@ -70,10 +80,20 @@ const alignmentClasses = computed(() => {
                 style="display: none;"
                 @click="open = false"
             >
+                <!-- Espacio para personalizar el contenido del dropdown -->
                 <div class="rounded-md ring-1 ring-black ring-opacity-5" :class="contentClasses">
                     <slot name="content" />
                 </div>
+
+
+
+
+
+
+
+
             </div>
         </transition>
+
     </div>
 </template>

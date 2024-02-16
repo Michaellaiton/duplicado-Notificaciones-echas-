@@ -37,7 +37,7 @@ Route::middleware([
 
 });
 
-Route::get('/notification', [MailController::class, 'sendEmail']);
+Route::get('/notification', [MailController::class, 'sendEmail'])->name('notification');
 
 
 

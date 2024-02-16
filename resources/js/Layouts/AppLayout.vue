@@ -14,6 +14,9 @@ defineProps({
 });
 
 const showingNavigationDropdown = ref(false);
+const isDropdownOpen = ref(false);
+
+
 
 const switchToTeam = (team) => {
     router.put(route('current-team.update'), {
@@ -27,6 +30,13 @@ const switchToTeam = (team) => {
 const logout = () => {
     router.post(route('logout'));
 };
+
+const showModal = ref(false);
+
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+};
+
 </script>
 
 <template>
@@ -58,15 +68,24 @@ const logout = () => {
 
 
 
-                            <!-- CAMPANA NOTIFICVACIONES
-                            <NavLink :href="">
-                                    <i class="fas fa-bell"></i>
+                                <!-- CAMPANA NOTIFICACIONES -->
+                                <div class="hidden sm:flex sm:items-center sm:ml-6">
+                                    <div class="ml-3 relative">
+                                        <div class="relative m-5 inline-flex w-fit">
+                                            <div class="absolute bottom-auto left-auto right-0.5 top-0.5 z-10 inline-block -translate-y-1/2 translate-x-2/4 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 rounded-full bg-pink-500 p-1.5 text-xs"></div>
 
-                            </NavLink> -->
-
-
-                        <div class="hidden sm:flex sm:items-center sm:ml-6">
-                            <div class="ml-3 relative">
+                                            <div @click="toggleDropdown" class="cursor-pointer dark:text-slate-500">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 30" fill="currentColor" class="h-6 w-6">
+                                                    <path fill-rule="evenodd" d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </div>
+                                                                    <!-- Menú desplegable -->
+                                            <!-- Menú desplegable -->
+                                            <div v-if="isDropdownOpen" class="absolute right-0 mt-2 bg-white border border-gray-200 p-2 shadow-md">
+                                                <!-- Opciones del menú -->
+                                                <router-link to="/resources/views/emails/TestMail.blade.php" class="cursor-pointer">Prueba_de_muestra_del correo</router-link>
+                                            </div>
+                                        </div>
                                 <!-- Teams Dropdown -->
                                 <Dropdown v-if="$page.props.jetstream.hasTeamFeatures" align="right" width="60">
                                     <template #trigger>
@@ -79,6 +98,7 @@ const logout = () => {
                                                 </svg>
                                             </button>
                                         </span>
+
                                     </template>
 
                                     <template #content>
@@ -88,6 +108,13 @@ const logout = () => {
                                                 <div class="block px-4 py-2 text-xs text-gray-400">
                                                     Gestionar equipo
                                                 </div>
+                                                 <!-- Menú desplegable -->
+                                                    <div v-if="isDropdownOpen" class="absolute right-0 mt-2 bg-white border border-gray-200 p-2 shadow-md">
+                                                                <!-- Opciones del menú -->
+                                                        <div @click="logout" class="cursor-pointer">Cerrar sesión</div>
+                                                        <router-link :to="{ name: 'profile.show' }" class="cursor-pointer">Perfil</router-link>
+                                                    </div>
+
 
                                                 <!-- Team Settings -->
                                                 <DropdownLink :href="route('teams.show', $page.props.auth.user.current_team)">

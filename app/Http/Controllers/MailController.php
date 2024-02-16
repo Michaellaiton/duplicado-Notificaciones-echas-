@@ -13,12 +13,13 @@ class MailController extends Controller
         $token = rand(100000, 999999); // Puedes ajustar el rango según tus necesidades
 
         $details = [
-            'title' => 'Correo de prueba proyecto DevProyect',
-            'body' => 'Este es un ejemplo para enviar correos desde Gmail',
+            'title' => 'Bienvenido a BolsaTalentum  - Código de Validación',
+            'body' => 'Para completar el proceso de registro y garantizar la seguridad de tu cuenta, necesitamos que verifiques tu dirección de correo electrónico. A continuación, encontrarás un código de validación único:',
             'token' => $token,
+            'fin' => '¡Estamos emocionados de tenerte a bordo y esperamos que disfrutes de todas las funcionalidades que ofrecemos tu Compañía!'
         ];
 
-        Mail::to('jaiderstivenquimbaya8@gmail.com')->send(new TestMail($details, $token));
+        Mail::to('michaellaiton1@gmail.com')->send(new TestMail($details, $token));
 
         return inertia('emails/TestMail', ['details' => $details]);
     }
