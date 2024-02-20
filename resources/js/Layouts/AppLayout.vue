@@ -83,7 +83,7 @@ const toggleDropdown = () => {
                                             <!-- Menú desplegable -->
                                             <div v-if="isDropdownOpen" class="absolute right-0 mt-2 bg-white border border-gray-200 p-2 shadow-md">
                                                 <!-- Opciones del menú -->
-                                                <router-link to="/resources/views/emails/TestMail.blade.php" class="cursor-pointer">Prueba_de_muestra_del correo</router-link>
+                                                <router-link to="" class="cursor-pointer" style="white-space: nowrap;">Nuevo Correo Enviado</router-link>
                                             </div>
                                         </div>
                                 <!-- Teams Dropdown -->

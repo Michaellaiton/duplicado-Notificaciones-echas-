@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         $super_admin = User::create([
             'name' => 'Jaider Quimbaya',
             'email' => 'superadmin@bolsaTalentum.net',
-            'password' => Hash::make('superadmin123456') 
+            'password' => Hash::make('superadmin123456')
         ]);
 
         $super_admin->assignRole('Super Administrator');
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'name' => 'michael Laiton',
             'email' => 'admin@bolsaTalentum.net',
-            'password' => Hash::make('admin1234567') 
+            'password' => Hash::make('admin1234567')
         ]);
 
         $admin->assignRole('Administrator');
